@@ -3,21 +3,37 @@ const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 // Test Framework
 const mocha = require('gulp-mocha');
+// Prettifying
+const prettier = require('gulp-prettier');
+
 const config = require('./build.config');
+const prettyConf = require('./.prettierrc.json');
 
 const devFolder = config.devFolder;
 const testFolder = config.testFolder;
 
+const allJSFiles = [
+  '*.js',
+  `${testFolder}/**/*.js`,
+  `${testFolder}/*.js`,
+  `${devFolder}/**/*.js`,
+  `${devFolder}/*.js`
+];
+
+const esLintOpts = { configFile: '.eslintrc.json', fix: true };
+
 // Lint JS Files
 gulp.task('lint', () => {
-  return gulp.src(['*.js', `${testFolder}/**/*.js`, `${testFolder}/*.js`, `${devFolder}/**/*.js`, `${devFolder}/*.js`])
+  return gulp
+    .src(allJSFiles)
     .pipe(eslint({ configFile: '.eslintrc.json' }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
 gulp.task('test', ['lint'], () => {
-  return gulp.src('test.js', { read: false })
+  return gulp
+    .src('test.js', { read: false })
     .pipe(mocha())
     .once('error', () => {
       process.exit(1);
@@ -25,11 +41,24 @@ gulp.task('test', ['lint'], () => {
 });
 
 gulp.task('fix', () => {
-  return gulp.src(['*.js', `${testFolder}/**/*.js`, `${testFolder}/*.js`, `${devFolder}/**/*.js`, `${devFolder}/*.js`])
-    .pipe(eslint({ configFile: '.eslintrc.json', fix: true }))
+  return gulp
+    .src(allJSFiles)
+    .pipe(eslint(esLintOpts))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
-    .pipe(gulp.dest());
+    .pipe(gulp.dest((file) => {
+      return file.base;
+    }));
+});
+
+gulp.task('pretty', () => {
+  return gulp
+    .src(allJSFiles)
+    .pipe(prettier(prettyConf))
+    .pipe(eslint(esLintOpts))
+    .pipe(gulp.dest((file) => {
+      return file.base;
+    }));
 });
 
 gulp.task('default', ['test']);

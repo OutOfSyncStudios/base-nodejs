@@ -1,7 +1,6 @@
 const test = require('unit.js');
 
 describe('Base Class', () => {
-
   const MainClass = require('../');
 
   it('load', () => {
