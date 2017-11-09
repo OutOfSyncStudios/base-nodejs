@@ -1,0 +1,39 @@
+{
+  "name": "base-nodejs",
+  "version": "1.0.0",
+  "description": "A no-frills pre-bootstraped NodeJS repo to quick start your NodeJS projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "build": "gulp",
+    "fix": "gulp fix",
+    "lint": "gulp lint",
+    "coverage": "nyc --reporter=lcov mocha && cat ./coverage/lcov.info | codacy-coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MediaXPost/base-nodejs.git"
+  },
+  "keywords": [
+    "base",
+    "bootstrap",
+    "nodejs"
+  ],
+  "author": "Jay Reardon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MediaXPost/base-nodejs/issues"
+  },
+  "homepage": "https://github.com/MediaXPost/base-nodejs#readme",
+  "devDependencies": {
+    "codacy-coverage": "^2.0.3",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.10.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.0",
+    "gulp-mocha": "^4.3.1",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
+    "unit.js": "^2.0.0"
+  }
+}
