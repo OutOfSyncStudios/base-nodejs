@@ -30,7 +30,7 @@
     "codacy-coverage": "^2.0.3",
     "cross-env": "^5.1.1",
     "eslint": "^4.10.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-eslint": "^4.0.0",
     "gulp-mocha": "^4.3.1",
     "gulp-prettier": "^1.1.0",
